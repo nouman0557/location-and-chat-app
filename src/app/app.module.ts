@@ -18,7 +18,7 @@ import { TokenInterceptor } from './http/token-interreceptor.service';
 import { AuthGuard } from './services/auth-guard.service';
 import { CommonService } from './services/common.service';
 import { AngularComponentComponent } from './angular-component/angular-component.component';
-// import { AgmCoreModule } from '@agm/core';
+import { GoogleMapsModule } from '@angular/google-maps';
 
 @NgModule({
   declarations: [
@@ -39,9 +39,7 @@ import { AngularComponentComponent } from './angular-component/angular-component
     ReactiveFormsModule,
     ToastrModule.forRoot(),
     BrowserAnimationsModule,
-    // AgmCoreModule.forRoot({
-    //   apiKey: 'AIzaSyDtF8W7464QgyrmWUatk_CkJaLEJF-I6DI',
-    // }),
+    GoogleMapsModule
   ],
   providers: [
     UserHttpService,

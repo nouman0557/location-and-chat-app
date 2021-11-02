@@ -1,1 +1,11 @@
-<p>location-watching works!</p>
+<div class="wrap">
+    <div class="dev-top">
+        You are watching other user location
+    </div>
+    <!-- <agm-map *ngIf="currentLat!=0" class="map-area" [latitude]="currentLat" [longitude]="currentLong" [zoom]="zoom">
+        <agm-marker [latitude]="currentLat" [longitude]="currentLong"></agm-marker>
+    </agm-map> -->
+    <google-map *ngIf="currentLat!=0" class="map-area" [zoom]="zoom" [center]="center" [options]="options">
+
+    </google-map>
+</div>

@@ -1,1 +1,13 @@
-<p>nav-bar works!</p>
+<div>
+    <ul>
+        <li><a routerLinkActive="active" routerLink="home">Home</a></li>
+        <li><a routerLinkActive="active" routerLink="location-tracking">Location Tracking </a></li>
+        <li><a routerLinkActive="active" routerLink="location-watching">Location Watching </a></li>
+        <li><a routerLinkActive="active" routerLink="chat-bot">Chat Bot </a></li>
+        <li><a routerLinkActive="active" routerLink="login">Logout </a></li>
+    </ul>
+</div>
+
+<span class="user-name">
+    Well come {{user?.fullName |titlecase}}
+</span>

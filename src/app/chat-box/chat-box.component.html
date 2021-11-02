@@ -1,1 +1,20 @@
-<p>chat-box works!</p>
+<ng-container class="easein-component">
+    <div class="chat-messages">
+        <div class="chat-messages-show-container">
+            <ul class="chat-messages-show-list">
+                <ng-container *ngFor="let msg of messages">
+                    <li class="sent-msg" *ngIf="msg?.msgTypeSent">
+                        {{msg?.text}}
+                    </li>
+                    <li class="rec-msg" *ngIf="!msg?.msgTypeSent">
+                        {{msg?.text}}
+                    </li>
+                </ng-container>
+            </ul>
+        </div>
+        <div class="chat-messages-create-container">
+            <input class="chat-messages-create-input" [(ngModel)]="message" (keyup.enter)="sendMessage()" type="text">
+            <button class="chat-messages-create-button" (click)="sendMessage()"> Send </button>
+        </div>
+    </div>
+</ng-container>

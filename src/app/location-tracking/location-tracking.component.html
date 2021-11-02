@@ -1,1 +1,22 @@
-<p>location-tracking works!</p>
+<div class="wrap">
+    <div class="dev-top">
+        Google Map Geolocation ( Note: Once Track me is enabled, refresh page to enable Find me feature! ) <br>
+        Enter your custome latitude and longitude <br>
+        <input type="number" [(ngModel)]="custLat" placeholder="Enter latitude" />
+        <input type="number" [(ngModel)]="custLng" placeholder="Enter longitude" />
+        <button (click)="getCustomeLocation()"> Submit</button> <br>
+        <span *ngIf="currentLat!=0"> Current Longitude:{{currentLat}} and Longitude: {{currentLong}} </span>
+    </div>
+
+    <button class="find-me-btn" (click)="getUserLocation()"> Find Me!</button>
+    <button class="find-me-btn" (click)="trackMe()"> Track Me!</button>
+
+    <!-- <agm-map *ngIf="currentLat!=0" class="map-area" [latitude]="currentLat" [longitude]="currentLong" [zoom]="zoom">
+        <agm-marker [latitude]="currentLat" [longitude]="currentLong"></agm-marker>
+    </agm-map> -->
+
+    <google-map *ngIf="currentLat!=0" class="map-area" [zoom]="zoom" [center]="center" [options]="options">
+
+    </google-map>
+
+</div>

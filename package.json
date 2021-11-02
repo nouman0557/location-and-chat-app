@@ -1,6 +1,7 @@
 {
   "name": "location-and-chat-app",
   "version": "0.0.0",
+  "author": "Nouman Saeed",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
@@ -15,6 +16,7 @@
     "@angular/compiler": "~12.1.0",
     "@angular/core": "~12.1.0",
     "@angular/forms": "~12.1.0",
+    "@angular/google-maps": "^12.2.12",
     "@angular/platform-browser": "~12.1.0",
     "@angular/platform-browser-dynamic": "~12.1.0",
     "@angular/router": "~12.1.0",

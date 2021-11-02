@@ -1,1 +1,115 @@
-<p>login-register works!</p>
+<form class="signin" *ngIf="!showRegiterForm" [formGroup]="signinForm" (ngSubmit)="onSubmit()">
+    <div class="form-header">
+        <h1>Welcome To Login Page</h1>
+        <p>Sign in to your account</p>
+    </div>
+    <div class="form-body">
+        <div class="row" [ngClass]="{'alert-error': submitted && signinFormControls.email.errors}">
+            <label for="email"></label>
+            <input class="input-wol--s37" type="text" formControlName="email" placeholder="Enter your email or username"
+                name="email" id="email" />
+            <div *ngIf="submitted && signinFormControls.email.errors">
+                <p class="error-notice" *ngIf="signinFormControls.email.errors.required">
+                    Email is required
+                </p>
+                <p class="error-notice" *ngIf="signinFormControls.email.errors.email">
+                    Email is invalid
+                </p>
+            </div>
+        </div>
+        <div class="row" [ngClass]="{'alert-error': submitted && signinFormControls.password.errors}">
+            <input class="input-wol--s37" type="password" formControlName="password"
+                placeholder="Enter your password" />
+            <div *ngIf="submitted && signinFormControls.password.errors">
+                <p class="error-notice" *ngIf="signinFormControls.password.errors.required">
+                    Password is required
+                </p>
+                <p class="error-notice" *ngIf="signinFormControls.password.errors.minlength">
+                    Password must be at least 6 characters
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <div class="form-footer">
+        <div class="row">
+            <button type="submit" class="btn-primary clickable" [disabled]="loading">
+                Sign in
+            </button>
+            <div (click)="showRegiterForm=!showRegiterForm">
+                <button type="button" class="cancelbtn"> Cretae an account</button>
+            </div>
+        </div>
+
+        <div *ngIf="loading" class="spinner-div">
+            <div class="loading-spinner-ripple">
+                <div class="spinner">
+                    <div></div>
+                    <div></div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</form>
+
+
+<form *ngIf="showRegiterForm" class="signup" [formGroup]="signupForm" (ngSubmit)="onRegisterSubmit()">
+    <div class="form-header">
+        <h1>Welcome To Sign-up Page</h1>
+        <p>Please fill in this form to create an account.</p>
+        <hr>
+    </div>
+    <div class="form-body">
+        <div class="row" [ngClass]="{ 'alert-error': submitted && signupFormControls.userName.errors }">
+            <input class="input-wol--s37" type="text" formControlName="userName" name="userName" placeholder="Username"
+                id="userName"><img class="icon">
+            <div *ngIf="submitted && signupFormControls.userName.errors">
+                <p class="error-notice" *ngIf="signupFormControls.userName.errors.required">User name is required</p>
+            </div>
+        </div>
+        <div class="row" [ngClass]="{ 'alert-error': submitted && signupFormControls.fullName.errors }">
+            <input class="input-wol--s37" type="text" formControlName="fullName" name="fullName"
+                placeholder="Enter Full Name" id="fullName"><img class="icon">
+            <div *ngIf="submitted && signupFormControls.fullName.errors">
+                <p class="error-notice" *ngIf="signupFormControls.fullName.errors.required">User name is required</p>
+            </div>
+        </div>
+        <div class="row" [ngClass]="{ 'alert-error': submitted && signupFormControls.email.errors }">
+            <input class="input-wol--s37" type="text" id="email" formControlName="email"
+                placeholder="Work email address">
+            <div *ngIf="submitted && signupFormControls.email.errors">
+                <p class="error-notice" *ngIf="signupFormControls.email.errors.required">Email is required</p>
+                <p class="error-notice" *ngIf="signupFormControls.email.errors.email">Email is invalid</p>
+            </div>
+        </div>
+        <div class="row" [ngClass]="{ 'alert-error': submitted && signupFormControls.password.errors }">
+            <input class="input-wol--s37" type="password" formControlName="password" placeholder="Password ">
+            <div *ngIf="submitted && signupFormControls.password.errors">
+                <p class="error-notice" *ngIf="signupFormControls.password.errors.required">Password is required</p>
+                <p class="error-notice" *ngIf="signupFormControls.password.errors.minlength">Password must be at least 6
+                    characters</p>
+            </div>
+        </div>
+
+    </div>
+    <div class="form-footer">
+        <div class="row">
+            <button type="submit" class="btn-primary clickable" [disabled]="loading">
+                Create Account
+            </button>
+        </div>
+        <!-- loader -->
+        <div *ngIf="loading" class="spinner-div">
+            <div class="loading-spinner-ripple">
+                <div class="spinner">
+                    <div></div>
+                    <div></div>
+                </div>
+            </div>
+        </div>
+        <div (click)="showRegiterForm=!showRegiterForm">
+            <button type="button" class="cancelbtn"> Sign in </button>
+        </div>
+    </div>
+</form>
