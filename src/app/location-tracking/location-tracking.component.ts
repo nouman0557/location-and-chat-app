@@ -1,6 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { GoogleMap, MapInfoWindow, MapMarker } from '@angular/google-maps';
 import { io } from 'socket.io-client';
 import { environment } from 'src/environments/environment';
+import { CommonService } from '../services/common.service';
 
 @Component({
   selector: 'app-location-tracking',
@@ -9,44 +11,93 @@ import { environment } from 'src/environments/environment';
 })
 export class LocationTrackingComponent implements OnInit {
 
-  center!: google.maps.LatLngLiteral
   options: google.maps.MapOptions = {
     mapTypeId: 'hybrid',
-    // zoomControl: false,
-    // scrollwheel: false,
+    scrollwheel: false,
+    // maxZoom: 5,
+    // minZoom: 5,
     // disableDoubleClickZoom: true,
-    maxZoom: 15,
-    minZoom: 8,
+    // zoomControl: false,
   }
 
-  constructor() { }
+  // picUpLocation!: google.maps.LatLngLiteral
+  picUpLocation = {
+    lat: 0,
+    lng: 0
+  }
+  dropOffLocation = {
+    lat: 0,
+    lng: 0
+  }
+  trackingLocation = {
+    lat: 0,
+    lng: 0
+  }
+
+  // picUpMarker = {
+  //   position: {
+  //     lat: this.picUpLocation.lat,
+  //     lng: this.picUpLocation.lng,
+  //   },
+  //   label: {
+  //     color: 'blue',
+  //   },
+  //   title: 'User pic up location',
+  //   options: { animation: google.maps.Animation.DROP },
+  // }
+
+  // dropOffMarker = {
+  //   position: {
+  //     lat: this.dropOffLocation.lat,
+  //     lng: this.dropOffLocation.lng,
+  //   },
+  //   label: {
+  //      color: 'green',
+  //   },
+  //   title: 'User drop off location',
+  //   options: { animation: google.maps.Animation.DROP },
+  // }
+
+  // trackingMarker = {
+  //   position: {
+  //     lat: this.trackingLocation.lat,
+  //     lng: this.trackingLocation.lng,
+  //   },
+  //   label: {
+  //      color: 'red',
+  //   },
+  //   title: 'User current location',
+  //   options: { animation: google.maps.Animation.DROP },
+  // }
+
+  markers: any[] = []
+  picUpMarker: any
+  dropOffMarker: any
+  trackingMarker: any
+
+  constructor(private commonService: CommonService) { }
 
   ngOnInit() {
+    this.picUpLocation = {
+      lat: 0,
+      lng: 0
+    }
+    this.getUserLocation()
     this.recLocation()
   }
 
   socket: any
   isTracking = false
-  currentLat = 0
-  currentLong = 0
-  marker: any
-  map: any
-  zoom = 16
-  custLat = 0
-  custLng = 0
+  zoom = 15
 
   getUserLocation() {
-    // get Users current position
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(position => {
-        this.currentLat = position.coords.latitude;
-        this.currentLong = position.coords.longitude;
-        this.center = {
-          lat: position.coords.latitude,
-          lng: position.coords.longitude,
-        }
-        this.zoom = 16;
-        this.sendLocation()
+        this.picUpLocation.lat = position.coords.latitude;
+        this.picUpLocation.lng = position.coords.longitude;
+        this.markers[0] = this.addMarker(this.picUpLocation.lat, this.picUpLocation.lng, 'User pic up location', 'picUp')
+        console.log("markers array updated -->", this.markers)
+        this.sendPicUpLocation()
         console.log("position --->", position)
       });
     } else {
@@ -54,21 +105,21 @@ export class LocationTrackingComponent implements OnInit {
     }
   }
 
-  getCustomeLocation() {
-    if (this.custLat != 0 && this.custLng != 0) {
-      this.currentLat = this.custLat
-      this.currentLong = this.custLng
-      this.center = {
-        lat: this.custLat,
-        lng: this.custLng,
-      }
-      this.sendLocation()
+  getdropOffLocationLocation() {
+    if (this.dropOffLocation.lat != 0 && this.dropOffLocation.lng != 0) {
+      // this.dropOffMarker = 
+      this.markers[1] = this.addMarker(this.dropOffLocation.lat, this.dropOffLocation.lng, 'User drop off location', 'dropOff')
+      // this.markers[1] = this.dropOffMarker
+      // this.addMarker()
+      console.log("markers array updated -->", this.markers)
+      // this.trackMe()
+      this.sendDropOffLocation()
     }
-
   }
 
   trackMe() {
     if (navigator.geolocation) {
+      // this.commonService.showSuccess("Tracking mode is enable successfully.", "System Tracking You.")
       this.isTracking = true;
       navigator.geolocation.watchPosition((position) => {
         this.showTrackingPosition(position);
@@ -80,30 +131,74 @@ export class LocationTrackingComponent implements OnInit {
 
   showTrackingPosition(position: any) {
     console.log(`tracking postion:  ${position.coords.latitude} - ${position.coords.longitude}`);
-    this.currentLat = position.coords.latitude;
-    this.currentLong = position.coords.longitude;
-    this.center = {
-      lat: position.coords.latitude,
-      lng: position.coords.longitude,
-    }
-    this.sendLocation()
+    // this.trackingLocation['lat'] = position.coords.latitude;
+    // this.trackingLocation['lng'] = position.coords.longitude;
+    // this.trackingMarker = this.addMarker(this.trackingLocation.lat, this.trackingLocation.lng, 'User current location')
+    this.sendTrackingLocation()
 
   }
 
+  customeTrackingLocation() {
+    if (this.trackingLocation.lat != 0 && this.trackingLocation.lng != 0) {
+      // this.trackingMarker = 
+      this.markers[2] = this.addMarker(this.trackingLocation.lat, this.trackingLocation.lng, 'User current location', 'tracking')
+      // this.markers[2] = this.trackingMarker
+      // this.addMarker()
+      console.log("markers array updated -->", this.markers)
+      console.log("trackingMarker  updated -->", this.trackingLocation)
 
-  sendLocation() {
-    const location = {
-      lat: this.currentLat,
-      lng: this.currentLong
+      this.sendTrackingLocation()
+    }
+  }
+
+  addMarker(lat: number, lng: number, title: string, type: string) {
+    let imgUrl = type == 'picUp' ? 'pic-up.png' : type == 'dropOff' ? 'drop-off.png' : 'tracking.png'
+    let marker = {
+      position: {
+        lat: lat,
+        lng: lng,
+      },
+      label: {
+        color: 'red',
+      },
+      title: title,
+      options: {
+        animation: type == 'tracking' ? google.maps.Animation.BOUNCE : google.maps.Animation.DROP,
+        draggable: false,
+        icon: "/assets/images/" + imgUrl,
+      },
+    }
+    return marker
+  }
+
+  sendPicUpLocation() {
+    const picUpLocation = {
+      lat: this.picUpLocation['lat'],
+      lng: this.picUpLocation['lng']
     };
-    this.socket.emit('ping', location);
+    this.socket.emit('picUpLocation', picUpLocation);
+  }
+
+  sendDropOffLocation() {
+    const dropOffLocation = {
+      lat: this.dropOffLocation['lat'],
+      lng: this.dropOffLocation['lng']
+    };
+    this.socket.emit('dropOffLocation', dropOffLocation);
+  }
+
+  sendTrackingLocation() {
+    const trackingLocation = {
+      lat: this.trackingLocation['lat'],
+      lng: this.trackingLocation['lng']
+    };
+    this.socket.emit('trackingLocation', trackingLocation);
   }
 
   recLocation() {
     this.socket = io(environment.SOCKET_ENDPOINT);
-    this.socket.on('new-location', (data: any) => {
-      // console.log('User relocate-->', data)
+    this.socket.on('trackingLocation', (data: any) => {
+      console.log('User relocate-->', data)
     });
   }
-
 }

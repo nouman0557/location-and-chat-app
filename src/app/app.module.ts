@@ -19,7 +19,6 @@ import { AuthGuard } from './services/auth-guard.service';
 import { CommonService } from './services/common.service';
 import { AngularComponentComponent } from './angular-component/angular-component.component';
 import { GoogleMapsModule } from '@angular/google-maps';
-
 @NgModule({
   declarations: [
     AppComponent,
@@ -29,7 +28,8 @@ import { GoogleMapsModule } from '@angular/google-maps';
     LocationWatchingComponent,
     LoginRegisterComponent,
     NavBarComponent,
-    AngularComponentComponent
+    AngularComponentComponent,
+
   ],
   imports: [
     BrowserModule,
@@ -39,7 +39,7 @@ import { GoogleMapsModule } from '@angular/google-maps';
     ReactiveFormsModule,
     ToastrModule.forRoot(),
     BrowserAnimationsModule,
-    GoogleMapsModule
+    GoogleMapsModule,
   ],
   providers: [
     UserHttpService,
