@@ -1,5 +1,5 @@
 export const environment = {
   production: true,
-  SOCKET_ENDPOINT: 'http://localhost:4000',
-  baseApiUrl: 'http://localhost:3000/'
+  SOCKET_ENDPOINT: 'https://lt-back.herokuapp.com',
+  baseApiUrl: 'https://lt-back.herokuapp.com/'
 };
