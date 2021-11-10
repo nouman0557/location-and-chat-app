@@ -19,6 +19,8 @@ import { AuthGuard } from './services/auth-guard.service';
 import { CommonService } from './services/common.service';
 import { AngularComponentComponent } from './angular-component/angular-component.component';
 import { GoogleMapsModule } from '@angular/google-maps';
+import { AngularFireModule } from '@angular/fire';
+import { AngularFirestoreModule } from '@angular/fire/firestore';
 @NgModule({
   declarations: [
     AppComponent,
@@ -40,6 +42,16 @@ import { GoogleMapsModule } from '@angular/google-maps';
     ToastrModule.forRoot(),
     BrowserAnimationsModule,
     GoogleMapsModule,
+    AngularFireModule.initializeApp({
+      apiKey: "AIzaSyA2clufa-g8U9QWAOJi7C52xZkNuVyaTuE",
+      authDomain: "my-project-first-330812.firebaseapp.com",
+      projectId: "my-project-first-330812",
+      storageBucket: "my-project-first-330812.appspot.com",
+      messagingSenderId: "397327658572",
+      appId: "1:397327658572:web:262bc72d51ce68cf660ee9",
+      measurementId: "G-0TRK4054R4"
+    }),
+    AngularFirestoreModule
   ],
   providers: [
     UserHttpService,

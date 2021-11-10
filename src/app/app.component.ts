@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
+import { AngularFirestore } from '@angular/fire/firestore';
 
 @Component({
   selector: 'app-root',
@@ -7,38 +8,58 @@ import { Router } from '@angular/router';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent implements OnInit {
+  dataSource: any;
+  name = ''
+  personalInfo = ''
+  @ViewChild('btnShow') btnShow!: ElementRef;
+  @ViewChild('btnClose') btnClose!: ElementRef;
 
   constructor(
     public _router: Router,
+    private store: AngularFirestore
   ) { }
 
-  title = 'location-and-chat-app';
-  zoom = 12
-
-  center!: google.maps.LatLngLiteral
-  options: google.maps.MapOptions = {
-    mapTypeId: 'hybrid',
-    // zoomControl: false,
-    // scrollwheel: false,
-    // disableDoubleClickZoom: true,
-    maxZoom: 15,
-    minZoom: 8,
+  ngOnInit() {
+    this.getAll()
   }
 
-  ngOnInit() {
-    navigator.geolocation.getCurrentPosition((position) => {
-      this.center = {
-        lat: position.coords.latitude,
-        lng: position.coords.longitude,
-      }
+  getAll() {
+    this.store.collection('userInfo').snapshotChanges().subscribe((response: any) => {
+      console.log('reponse ', response);
     })
   }
 
-  zoomIn() {
-    // if (this.zoom < this.options.maxZoom) this.zoom++
+
+  openDialog() {
+    this.btnShow.nativeElement.click();
+  }
+  closeDialog() {
+    this.btnClose.nativeElement.click();
+  }
+  editObj: any;
+  edit(id: string) {
+    this.store.collection('userInfo').doc(id).get().subscribe((response) => {
+      this.editObj = Object.assign({ id: response.id }, response.data());
+      this.name = this.editObj.name;
+      this.personalInfo = this.editObj.personalInfo;
+      this.openDialog();
+    })
   }
 
-  zoomOut() {
-    // if (this.zoom > this.options.minZoom) this.zoom--
+  add() {
+    if (this.editObj) {
+      this.store.collection('userInfo').doc(this.editObj.id).update({ name: this.name, personalInfo: this.personalInfo });
+    } else {
+      this.store.collection('userInfo').add({ name: this.name, personalInfo: this.personalInfo });
+    }
+    this.closeDialog();
+  }
+  clearEdit() {
+    this.editObj = null;
+    this.name = "";
+    this.personalInfo = "";
+  }
+  delete(id: string) {
+    this.store.collection('list').doc(id).delete();
   }
 }
