@@ -21,6 +21,8 @@ import { AngularComponentComponent } from './angular-component/angular-component
 import { GoogleMapsModule } from '@angular/google-maps';
 import { AngularFireModule } from '@angular/fire';
 import { AngularFirestoreModule } from '@angular/fire/firestore';
+import { FireBaseDataService } from './services/firebase-data.service';
+import { FirebaseCurdComponent } from './firebase-curd/firebase-curd.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -31,6 +33,7 @@ import { AngularFirestoreModule } from '@angular/fire/firestore';
     LoginRegisterComponent,
     NavBarComponent,
     AngularComponentComponent,
+    FirebaseCurdComponent,
 
   ],
   imports: [
@@ -57,6 +60,7 @@ import { AngularFirestoreModule } from '@angular/fire/firestore';
     UserHttpService,
     CommonService,
     AuthGuard,
+    FireBaseDataService,
     {
       provide: HTTP_INTERCEPTORS,
       useClass: TokenInterceptor,

@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { ChatBoxComponent } from './chat-box/chat-box.component';
+import { FirebaseCurdComponent } from './firebase-curd/firebase-curd.component';
 import { HomeComponent } from './home/home.component';
 import { LocationTrackingComponent } from './location-tracking/location-tracking.component';
 import { LocationWatchingComponent } from './location-watching/location-watching.component';
@@ -18,6 +19,8 @@ const routes: Routes = [
   { path: 'location-tracking', component: LocationTrackingComponent, canActivate: [AuthGuard] },
 
   { path: 'location-watching', component: LocationWatchingComponent, canActivate: [AuthGuard] },
+
+  { path: 'firebase-curd', component: FirebaseCurdComponent, canActivate: [AuthGuard] },
 
   { path: '', redirectTo: 'login', pathMatch: 'full' },
 
