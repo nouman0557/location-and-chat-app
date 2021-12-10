@@ -6,11 +6,7 @@ import { CommonService } from '../services/common.service';
 import { WindowService } from '../services/window.service';
 import { HttpClient } from '@angular/common/http';
 import { getAuth, RecaptchaVerifier } from "firebase/auth";
-import { initializeApp, FirebaseApp } from "firebase/app";
-import { getAnalytics } from "firebase/analytics";
-import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
 import { ReCaptchaV3Service } from 'ng-recaptcha';
-const auth = getAuth();
 
 
 
@@ -96,7 +92,7 @@ export class LoginRegisterComponent implements OnInit {
   ngOnInit() {
     this.myRecaptcha.valueChanges.subscribe(token => {
       console.log('token--->', token)
-      this.httpClint.post('http://localhost:5000/api/v1/drivers/onboarding/initverify', { phoneNumber: '923157682557', recapchaToken: token })
+      this.httpClint.post('http://localhost:5000/api/v1/drivers/onboarding/initverify', { phoneNumber: '+923157682557', recapchaToken: token })
 
     })
 

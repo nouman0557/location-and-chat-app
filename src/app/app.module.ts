@@ -17,7 +17,6 @@ import { UserHttpService } from './http/user-http.service';
 import { TokenInterceptor } from './http/token-interreceptor.service';
 import { AuthGuard } from './services/auth-guard.service';
 import { CommonService } from './services/common.service';
-import { AngularComponentComponent } from './angular-component/angular-component.component';
 import { GoogleMapsModule } from '@angular/google-maps';
 // import { AngularFireModule } from '@angular/fire';
 // import { AngularFirestoreModule } from '@angular/fire/firestore';
@@ -37,7 +36,6 @@ import { RECAPTCHA_V3_SITE_KEY, RecaptchaV3Module } from "ng-recaptcha";
     LocationWatchingComponent,
     LoginRegisterComponent,
     NavBarComponent,
-    AngularComponentComponent,
     FirebaseCurdComponent,
     TrackLocationComponent
 
