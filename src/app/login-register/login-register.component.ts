@@ -96,14 +96,14 @@ export class LoginRegisterComponent implements OnInit {
 
     })
 
-    this.windowRef = this.windowSer.windowRef;
-    this.recaptchaverifier = new RecaptchaVerifier('recaptcha-container', {
-      'size': 'invisible',
-      'callback': (response: any) => {
-        this.httpClint.post('http://localhost:5000/api/v1/drivers/onboarding/initverify', { phoneNumber: '923157682557', recapchaToken: response })
+    // this.windowRef = this.windowSer.windowRef;
+    // this.recaptchaverifier = new RecaptchaVerifier('recaptcha-container', {
+    //   'size': 'invisible',
+    //   'callback': (response: any) => {
+    //     this.httpClint.post('http://localhost:5000/api/v1/drivers/onboarding/initverify', { phoneNumber: '923157682557', recapchaToken: response })
 
-      }
-    }, auth);
+    //   }
+    // }, auth);
 
     localStorage.clear()
     this.signupForm.reset()
