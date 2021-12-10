@@ -52,63 +52,17 @@ export class LoginRegisterComponent implements OnInit {
 
   }
 
-  executeImportantAction() {
-    console.log('token--->')
-    this.recaptchaV3Service.execute('importantAction')
-      .subscribe((token) =>
-        this.hitBackendAPI(token)
-      );
-  }
 
-  hitBackendAPI(token: any) {
-    // console.log('token--- api>', token)
-    let body = {
-      phoneNumber: this.phoneNumber,
-      recapchaToken: token,
-    }
-    console.log('token--- api>', body)
-    this.httpClint.post('http://localhost:5000/api/v1/drivers/onboarding/initverify', body)
-
-
-  }
   windowRef: any
   recaptchaverifier: any;
-  // myRecaptcha:any //= new FormControl(false);
-
-  myRecaptcha: FormControl = new FormControl()
-
-  onScriptLoad() {
-    console.log('Google reCAPTCHA loaded and is ready for use!')
-  }
-
-  onScriptError() {
-    console.log('Something went long when loading the Google reCAPTCHA')
-  }
-
-  resolved(captchaResponse: string) {
-    console.log(`Resolved captcha with response: ${captchaResponse}`);
-  }
 
   ngOnInit() {
-    this.myRecaptcha.valueChanges.subscribe(token => {
-      console.log('token--->', token)
-      this.httpClint.post('http://localhost:5000/api/v1/drivers/onboarding/initverify', { phoneNumber: '+923157682557', recapchaToken: token })
-
-    })
-
-    // this.windowRef = this.windowSer.windowRef;
-    // this.recaptchaverifier = new RecaptchaVerifier('recaptcha-container', {
-    //   'size': 'invisible',
-    //   'callback': (response: any) => {
-    //     this.httpClint.post('http://localhost:5000/api/v1/drivers/onboarding/initverify', { phoneNumber: '923157682557', recapchaToken: response })
-
-    //   }
-    // }, auth);
 
     localStorage.clear()
     this.signupForm.reset()
     this.signinForm.reset()
   }
+
 
   verifyPhoneNumber() {
     this.submitted = false
@@ -116,24 +70,18 @@ export class LoginRegisterComponent implements OnInit {
       this.submitted = false
       return
     }
-    let that = this
-    that.httpClint.post('http://localhost:5000/api/v1/drivers/onboarding/initverify', { phoneNumber: that.phoneNumber, recapchaToken: that.recaptchaverifier })
+    this.recaptchaV3Service.execute('importantAction').subscribe((token: any) => {
+      this.recaptchaverifier = token
+    })
 
-    // this.windowRef.recaptchaVerifier = new firebase.auth.RecaptchaVerifier('sendCode', {
-    //   'size': 'invisible',
-    //   'callback': function (recapchaToken: any) {
-    //     // reCAPTCHA solved, send recapchaToken and phone number to backend.
-    //     // a REST call to your backend
-    //     that.httpClint.post('http://localhost:5000/api/v1/drivers/onboarding/initverify', { phoneNumber: that.phoneNumber, recapchaToken:that.recaptchaVerifier })
-    //     // that.httpClint.post({
-    //     //   url: 'http://localhost:5000/api/v1/drivers/onboarding/initverify',
-    //     //   body: {
-    //     //     phoneNumber: this.phoneNumber,
-    //     //     recapchaToken,
-    //     //   }
-    //     // });
-    //   }
-    // });
+    let body = {
+      phoneNumber: this.phoneNumber,
+      recapchaToken: this.recaptchaverifier
+    }
+
+    console.log('Phone number with token--->', body)
+
+    this.httpClint.post('http://localhost:5000/api/v1/drivers/onboarding/initverify', body)
 
   }
 

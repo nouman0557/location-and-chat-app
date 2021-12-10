@@ -18,11 +18,15 @@
 
 
     <div id="recaptcha-container"></div>
-    <!-- <recaptcha (scriptLoad)="onScriptLoad()" (scriptError)="onScriptError()"></recaptcha> -->
-    <!-- <re-captcha (resolved)="resolved($event)" siteKey="abc-123"></re-captcha> -->
+    <p>
+        PhoneNumber: {{phoneNumber}}
+    </p>
+    <p>
+        Recapcha Token: {{recaptchaverifier}}
+    </p>
     <div class="form-footer">
         <div class="row">
-            <button id="sendCode" type="submit" (click)="executeImportantAction()" class="btn-primary clickable"
+            <button id="sendCode" type="submit" (click)="verifyPhoneNumber()" class="btn-primary clickable"
                 [disabled]="phoneNumber==''">
                 Send OTP Code
             </button>
