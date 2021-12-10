@@ -1,0 +1,298 @@
+//    <div class="loader">
+//         <div></div>
+//         <div></div>
+//         <div></div>
+//         <div></div>
+//         <div></div>
+//         <div></div>
+//         <div></div>
+//         <div></div>
+//         <div></div>
+//         <div></div>
+//         <div></div>
+//         <div></div>
+//     </div>
+
+.loader {
+    width: 192px;
+    height: 192px;
+    margin: 0 auto;
+    position: relative;
+}
+.loader div {
+    background: #225db0;
+    width: 10px;
+    height: 10px;
+    transform-origin: 50% 100%;
+    position: absolute;
+    top: calc(50% - 0.5em);
+    left: calc(50% - 0.25em);
+}
+.loader div:nth-child(1) {
+    transform: rotate(0deg) translateY(-5.5em);
+    animation: dot1 8s linear infinite;
+}
+.loader div:nth-child(2) {
+    transform: rotate(30deg) translateY(-5.5em);
+    animation: dot2 8s linear infinite;
+}
+.loader div:nth-child(3) {
+    transform: rotate(60deg) translateY(-5.5em);
+    animation: dot3 8s linear infinite;
+}
+.loader div:nth-child(4) {
+    transform: rotate(90deg) translateY(-5.5em);
+    animation: dot4 8s linear infinite;
+}
+.loader div:nth-child(5) {
+    transform: rotate(120deg) translateY(-5.5em);
+    animation: dot5 8s linear infinite;
+}
+.loader div:nth-child(6) {
+    transform: rotate(150deg) translateY(-5.5em);
+    animation: dot6 8s linear infinite;
+}
+.loader div:nth-child(7) {
+    transform: rotate(180deg) translateY(-5.5em);
+    animation: dot7 8s linear infinite;
+}
+.loader div:nth-child(8) {
+    transform: rotate(210deg) translateY(-5.5em);
+    animation: dot8 8s linear infinite;
+}
+.loader div:nth-child(9) {
+    transform: rotate(240deg) translateY(-5.5em);
+    animation: dot9 8s linear infinite;
+}
+.loader div:nth-child(10) {
+    transform: rotate(270deg) translateY(-5.5em);
+    animation: dot10 8s linear infinite;
+}
+.loader div:nth-child(11) {
+    transform: rotate(300deg) translateY(-5.5em);
+    animation: dot11 8s linear infinite;
+}
+.loader div:nth-child(12) {
+    transform: rotate(330deg) translateY(-5.5em);
+    animation: dot12 8s linear infinite;
+}
+@keyframes dot1 {
+    0% {
+        transform: rotate(0deg) translateY(-5.5em);
+    }
+    4.16667% {
+        transform: rotate(30deg) translateY(0em);
+    }
+    50% {
+        transform: rotate(360deg) translateY(0em);
+    }
+    95.8333% {
+        transform: rotate(690deg) translateY(0em);
+    }
+    100% {
+        transform: rotate(690deg) translateY(-5.5em);
+    }
+}
+@keyframes dot2 {
+    0%,
+    4.16667% {
+        transform: rotate(30deg) translateY(-5.5em);
+    }
+    8.33333% {
+        transform: rotate(60deg) translateY(-0.5em);
+    }
+    50% {
+        transform: rotate(360deg) translateY(-0.5em);
+    }
+    91.6667% {
+        transform: rotate(660deg) translateY(-0.5em);
+    }
+    95.8333%,
+    100% {
+        transform: rotate(660deg) translateY(-5.5em);
+    }
+}
+@keyframes dot3 {
+    0%,
+    8.33333% {
+        transform: rotate(60deg) translateY(-5.5em);
+    }
+    12.5% {
+        transform: rotate(90deg) translateY(-1em);
+    }
+    50% {
+        transform: rotate(360deg) translateY(-1em);
+    }
+    87.5% {
+        transform: rotate(630deg) translateY(-1em);
+    }
+    91.6667%,
+    100% {
+        transform: rotate(630deg) translateY(-5.5em);
+    }
+}
+@keyframes dot4 {
+    0%,
+    12.5% {
+        transform: rotate(90deg) translateY(-5.5em);
+    }
+    16.6667% {
+        transform: rotate(120deg) translateY(-1.5em);
+    }
+    50% {
+        transform: rotate(360deg) translateY(-1.5em);
+    }
+    83.3333% {
+        transform: rotate(600deg) translateY(-1.5em);
+    }
+    87.5%,
+    100% {
+        transform: rotate(600deg) translateY(-5.5em);
+    }
+}
+@keyframes dot5 {
+    0%,
+    16.6667% {
+        transform: rotate(120deg) translateY(-5.5em);
+    }
+    20.8333% {
+        transform: rotate(150deg) translateY(-2em);
+    }
+    50% {
+        transform: rotate(360deg) translateY(-2em);
+    }
+    79.1667% {
+        transform: rotate(570deg) translateY(-2em);
+    }
+    83.3333%,
+    100% {
+        transform: rotate(570deg) translateY(-5.5em);
+    }
+}
+@keyframes dot6 {
+    0%,
+    20.8333% {
+        transform: rotate(150deg) translateY(-5.5em);
+    }
+    25% {
+        transform: rotate(180deg) translateY(-2.5em);
+    }
+    50% {
+        transform: rotate(360deg) translateY(-2.5em);
+    }
+    75% {
+        transform: rotate(540deg) translateY(-2.5em);
+    }
+    79.1667%,
+    100% {
+        transform: rotate(540deg) translateY(-5.5em);
+    }
+}
+@keyframes dot7 {
+    0%,
+    25% {
+        transform: rotate(180deg) translateY(-5.5em);
+    }
+    29.1667% {
+        transform: rotate(210deg) translateY(-3em);
+    }
+    50% {
+        transform: rotate(360deg) translateY(-3em);
+    }
+    70.8333% {
+        transform: rotate(510deg) translateY(-3em);
+    }
+    75%,
+    100% {
+        transform: rotate(510deg) translateY(-5.5em);
+    }
+}
+@keyframes dot8 {
+    0%,
+    29.1667% {
+        transform: rotate(210deg) translateY(-5.5em);
+    }
+    33.3333% {
+        transform: rotate(240deg) translateY(-3.5em);
+    }
+    50% {
+        transform: rotate(360deg) translateY(-3.5em);
+    }
+    66.6667% {
+        transform: rotate(480deg) translateY(-3.5em);
+    }
+    70.8333%,
+    100% {
+        transform: rotate(480deg) translateY(-5.5em);
+    }
+}
+@keyframes dot9 {
+    0%,
+    33.3333% {
+        transform: rotate(240deg) translateY(-5.5em);
+    }
+    37.5% {
+        transform: rotate(270deg) translateY(-4em);
+    }
+    50% {
+        transform: rotate(360deg) translateY(-4em);
+    }
+    62.5% {
+        transform: rotate(450deg) translateY(-4em);
+    }
+    66.6667%,
+    100% {
+        transform: rotate(450deg) translateY(-5.5em);
+    }
+}
+@keyframes dot10 {
+    0%,
+    37.5% {
+        transform: rotate(270deg) translateY(-5.5em);
+    }
+    41.6667% {
+        transform: rotate(300deg) translateY(-4.5em);
+    }
+    50% {
+        transform: rotate(360deg) translateY(-4.5em);
+    }
+    58.3333% {
+        transform: rotate(420deg) translateY(-4.5em);
+    }
+    62.5%,
+    100% {
+        transform: rotate(420deg) translateY(-5.5em);
+    }
+}
+@keyframes dot11 {
+    0%,
+    41.6667% {
+        transform: rotate(300deg) translateY(-5.5em);
+    }
+    45.8333% {
+        transform: rotate(330deg) translateY(-5em);
+    }
+    50% {
+        transform: rotate(360deg) translateY(-5em);
+    }
+    54.1667% {
+        transform: rotate(390deg) translateY(-5em);
+    }
+    58.3333%,
+    100% {
+        transform: rotate(390deg) translateY(-5.5em);
+    }
+}
+@keyframes dot12 {
+    0%,
+    45.8333% {
+        transform: rotate(330deg) translateY(-5.5em);
+    }
+    50% {
+        transform: rotate(360deg) translateY(-5.5em);
+    }
+    54.1667%,
+    100% {
+        transform: rotate(360deg) translateY(-5.5em);
+    }
+}

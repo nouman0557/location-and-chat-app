@@ -1,8 +1,18 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { ActivatedRoute, Router } from '@angular/router';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { AccountService } from '../services/account.service';
 import { CommonService } from '../services/common.service';
+import { WindowService } from '../services/window.service';
+import { HttpClient } from '@angular/common/http';
+import { getAuth, RecaptchaVerifier } from "firebase/auth";
+import { initializeApp, FirebaseApp } from "firebase/app";
+import { getAnalytics } from "firebase/analytics";
+import { debounceTime, distinctUntilChanged } from 'rxjs/operators';
+import { ReCaptchaV3Service } from 'ng-recaptcha';
+const auth = getAuth();
+
+
 
 @Component({
   selector: 'app-login-register',
@@ -19,12 +29,17 @@ export class LoginRegisterComponent implements OnInit {
   signinFlag = 2
   showRegiterForm = false
   loader = false
+
+  phoneNumber = '923157682557'
   constructor(
     private fb: FormBuilder,
-    private route: ActivatedRoute,
     private accountService: AccountService,
     private router: Router,
-    private commonService: CommonService
+    private commonService: CommonService,
+    private windowSer: WindowService,
+    private httpClint: HttpClient,
+    private recaptchaV3Service: ReCaptchaV3Service,
+
   ) {
 
     this.signupForm = this.fb.group({
@@ -41,11 +56,91 @@ export class LoginRegisterComponent implements OnInit {
 
   }
 
+  executeImportantAction() {
+    console.log('token--->')
+    this.recaptchaV3Service.execute('importantAction')
+      .subscribe((token) =>
+        this.hitBackendAPI(token)
+      );
+  }
+
+  hitBackendAPI(token: any) {
+    // console.log('token--- api>', token)
+    let body = {
+      phoneNumber: this.phoneNumber,
+      recapchaToken: token,
+    }
+    console.log('token--- api>', body)
+    this.httpClint.post('http://localhost:5000/api/v1/drivers/onboarding/initverify', body)
+
+
+  }
+  windowRef: any
+  recaptchaverifier: any;
+  // myRecaptcha:any //= new FormControl(false);
+
+  myRecaptcha: FormControl = new FormControl()
+
+  onScriptLoad() {
+    console.log('Google reCAPTCHA loaded and is ready for use!')
+  }
+
+  onScriptError() {
+    console.log('Something went long when loading the Google reCAPTCHA')
+  }
+
+  resolved(captchaResponse: string) {
+    console.log(`Resolved captcha with response: ${captchaResponse}`);
+  }
+
   ngOnInit() {
+    this.myRecaptcha.valueChanges.subscribe(token => {
+      console.log('token--->', token)
+      this.httpClint.post('http://localhost:5000/api/v1/drivers/onboarding/initverify', { phoneNumber: '923157682557', recapchaToken: token })
+
+    })
+
+    this.windowRef = this.windowSer.windowRef;
+    this.recaptchaverifier = new RecaptchaVerifier('recaptcha-container', {
+      'size': 'invisible',
+      'callback': (response: any) => {
+        this.httpClint.post('http://localhost:5000/api/v1/drivers/onboarding/initverify', { phoneNumber: '923157682557', recapchaToken: response })
+
+      }
+    }, auth);
+
     localStorage.clear()
     this.signupForm.reset()
     this.signinForm.reset()
   }
+
+  verifyPhoneNumber() {
+    this.submitted = false
+    if (this.phoneNumber.length < 7) {
+      this.submitted = false
+      return
+    }
+    let that = this
+    that.httpClint.post('http://localhost:5000/api/v1/drivers/onboarding/initverify', { phoneNumber: that.phoneNumber, recapchaToken: that.recaptchaverifier })
+
+    // this.windowRef.recaptchaVerifier = new firebase.auth.RecaptchaVerifier('sendCode', {
+    //   'size': 'invisible',
+    //   'callback': function (recapchaToken: any) {
+    //     // reCAPTCHA solved, send recapchaToken and phone number to backend.
+    //     // a REST call to your backend
+    //     that.httpClint.post('http://localhost:5000/api/v1/drivers/onboarding/initverify', { phoneNumber: that.phoneNumber, recapchaToken:that.recaptchaVerifier })
+    //     // that.httpClint.post({
+    //     //   url: 'http://localhost:5000/api/v1/drivers/onboarding/initverify',
+    //     //   body: {
+    //     //     phoneNumber: this.phoneNumber,
+    //     //     recapchaToken,
+    //     //   }
+    //     // });
+    //   }
+    // });
+
+  }
+
 
   get signupFormControls() { return this.signupForm.controls; }
 

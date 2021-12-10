@@ -1,4 +1,55 @@
-<form class="signin" *ngIf="!showRegiterForm" [formGroup]="signinForm" (ngSubmit)="onSubmit()">
+<form class="signin">
+    <div class="form-header">
+        <h1>Phone Verification</h1>
+        <p>Please verify your phone number</p>
+    </div>
+    <div class="form-body">
+        <div class="row" [ngClass]="{'alert-error': submitted && phoneNumber==''}">
+            <label for="email"></label>
+            <input class="input-wol--s37" type="number" [(ngModel)]="phoneNumber" placeholder="Enter your phone number"
+                name="phoneNumber" id="phoneNumber" />
+            <div *ngIf="submitted && phoneNumber=='' ">
+                <p class="error-notice">
+                    Phone Number is Required
+                </p>
+            </div>
+        </div>
+    </div>
+
+
+    <div id="recaptcha-container"></div>
+    <!-- <recaptcha (scriptLoad)="onScriptLoad()" (scriptError)="onScriptError()"></recaptcha> -->
+    <!-- <re-captcha (resolved)="resolved($event)" siteKey="abc-123"></re-captcha> -->
+    <div class="form-footer">
+        <div class="row">
+            <button id="sendCode" type="submit" (click)="executeImportantAction()" class="btn-primary clickable"
+                [disabled]="phoneNumber==''">
+                Send OTP Code
+            </button>
+        </div>
+
+        <div *ngIf="loading" class="spinner-div">
+            <div class="loader">
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+            </div>
+        </div>
+    </div>
+
+</form>
+
+
+<!-- <form class="signin" [formGroup]="signinForm" (ngSubmit)="onSubmit()">
     <div class="form-header">
         <h1>Welcome To Login Page</h1>
         <p>Sign in to your account</p>
@@ -42,16 +93,26 @@
         </div>
 
         <div *ngIf="loading" class="spinner-div">
-            <div class="loading-spinner-ripple">
-                <div class="spinner">
-                    <div></div>
-                    <div></div>
-                </div>
-            </div>
+               <div class="loader">
+                      <div></div>
+                      <div></div>
+                      <div></div>
+                      <div></div>
+                      <div></div>
+                      <div></div>
+                      <div></div>
+                      <div></div>
+                      <div></div>
+                      <div></div>
+                      <div></div>
+                        <div></div>
+                    </div>
         </div>
 
+
+
     </div>
-</form>
+</form> -->
 
 
 <form *ngIf="showRegiterForm" class="signup" [formGroup]="signupForm" (ngSubmit)="onRegisterSubmit()">
@@ -101,12 +162,20 @@
         </div>
         <!-- loader -->
         <div *ngIf="loading" class="spinner-div">
-            <div class="loading-spinner-ripple">
-                <div class="spinner">
-                    <div></div>
-                    <div></div>
-                </div>
-            </div>
+               <div class="loader">
+                      <div></div>
+                      <div></div>
+                      <div></div>
+                      <div></div>
+                      <div></div>
+                      <div></div>
+                      <div></div>
+                      <div></div>
+                      <div></div>
+                      <div></div>
+                      <div></div>
+                        <div></div>
+                    </div>
         </div>
         <div (click)="showRegiterForm=!showRegiterForm">
             <button type="button" class="cancelbtn"> Sign in </button>
